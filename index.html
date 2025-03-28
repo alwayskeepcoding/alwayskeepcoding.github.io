@@ -4,151 +4,552 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Always Keep Coding</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary: #4a86e8;
+            --secondary: #6c63ff;
+            --accent: #ff69b4;
+            --dark: #1a1a2e;
+            --light: #f5f5f7;
+            --code-bg: #282a36;
         }
-
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a1b3b 0%, #4a1942 50%, #ff69b4 100%);
-            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #333;
             line-height: 1.6;
             min-height: 100vh;
+            position: relative;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234a86e8' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+                radial-gradient(circle at 10% 20%, rgba(74, 134, 232, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, rgba(108, 99, 255, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--dark);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link {
+            position: relative;
+            margin: 0 0.5rem;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 40%;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+
+        .content-card {
+            background: #ffffff;
+            border-radius: 8px;
             padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            overflow: hidden;
         }
 
-        header {
-            text-align: center;
-            padding: 4rem 0;
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #00ffff, #ff69b4);
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(255,255,255,0.1);
+            font-weight: 700;
         }
 
-        nav {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
+        .tech-tag {
+            background: rgba(74, 134, 232, 0.1);
+            border: 1px solid rgba(74, 134, 232, 0.2);
+            color: var(--primary);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-family: 'Fira Code', monospace;
         }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
+        .tech-tag.swift {
+            background: rgba(255, 59, 48, 0.1);
+            border-color: rgba(255, 59, 48, 0.2);
+            color: #ff3b30;
         }
 
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
+        .tech-tag.ai {
+            background: rgba(88, 86, 214, 0.1);
+            border-color: rgba(88, 86, 214, 0.2);
+            color: #5856d6;
+        }
+
+        .tech-tag.privacy {
+            background: rgba(52, 199, 89, 0.1);
+            border-color: rgba(52, 199, 89, 0.2);
+            color: #34c759;
+        }
+
+        .app-badge {
+            background: rgba(74, 134, 232, 0.1);
+            border: 1px solid rgba(74, 134, 232, 0.3);
+            color: var(--primary);
+            border-radius: 6px;
+            padding: 5px 15px;
+            display: inline-block;
+            margin-bottom: 15px;
             font-weight: 500;
+            font-family: 'Fira Code', monospace;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .terminal-card {
+            background: var(--code-bg);
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            position: relative;
+        }
+
+        .terminal-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .btn-red { background-color: #ff5f56; }
+        .btn-yellow { background-color: #ffbd2e; }
+        .btn-green { background-color: #27c93f; }
+
+        .terminal-content {
+            margin-top: 30px;
+        }
+
+        .command-line {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .prompt {
+            color: #50fa7b;
+            margin-right: 10px;
+        }
+
+        .command {
+            color: #f8f8f2;
+        }
+
+        .response {
+            color: #bd93f9;
+            margin-bottom: 15px;
+        }
+
+        .typed-cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: #f8f8f2;
+            margin-left: 4px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .project-card {
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            margin-bottom: 1rem;
+            color: #555;
+            flex-grow: 1;
+        }
+
+        .lang-button {
+            background: #f8f9fa;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            color: #444444;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .lang-button:hover {
+            background: #e9ecef;
+            color: #333333;
+        }
+
+        .privacy-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .social-icon {
+            color: var(--dark);
+            font-size: 1.5rem;
+            margin: 0 10px;
             transition: color 0.3s ease;
         }
 
-        nav a:hover {
-            color: #ff69b4;
+        .social-icon:hover {
+            color: var(--primary);
         }
 
-        .content-section {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .content-section:hover {
-            transform: translateY(-5px);
-        }
-
-        h2 {
-            color: #00ffff;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-            }
+        .feature-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-right: 8px;
+            width: 24px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Always Keep Coding</h1>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand code-font" href="#home">
+                <i class="fas fa-terminal me-2"></i>
+                AlwaysKeepCoding
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
                 </ul>
-            </nav>
-        </header>
+            </div>
+        </div>
+    </nav>
 
-        <main>
-            <section id="home" class="content-section">
-                <h2>Welcome to My Coding Journey</h2>
-                <p>Here, I share my passion for programming and continuous learning. Join me as we explore the ever-evolving world of technology and software development.</p>
-            </section>
+    <div class="container py-5">
+        <section id="home" class="mb-5">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold mb-4">
+                        <span class="code-font">&lt;</span>
+                        <span class="gradient-text">Always Keep Coding</span>
+                        <span class="code-font">/&gt;</span>
+                    </h1>
+                    <p class="lead mb-4">Developer. Problem Solver. Continuous Learner.</p>
+                    <div class="terminal-card">
+                        <div class="terminal-header">
+                            <div class="terminal-btn btn-red"></div>
+                            <div class="terminal-btn btn-yellow"></div>
+                            <div class="terminal-btn btn-green"></div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="command-line">
+                                <div class="prompt">~/dev $</div>
+                                <div class="command">whoami</div>
+                            </div>
+                            <div class="response">Passionate software developer with a focus on AI and mobile technologies</div>
+                            
+                            <div class="command-line">
+                                <div class="prompt">~/dev $</div>
+                                <div class="command">cat skills.txt</div>
+                            </div>
+                            <div class="response">iOS Development • Machine Learning • Backend Systems • Data Engineering</div>
+                            
+                            <div class="command-line">
+                                <div class="prompt">~/dev $</div>
+                                <div class="command">ls -la projects/</div>
+                            </div>
+                            <div class="response">
+                                total 4<br>
+                                drwxr-xr-x  2 dev  staff  MarkFlow<br>
+                                drwxr-xr-x  2 dev  staff  ...
+                            </div>
+                            
+                            <div class="command-line">
+                                <div class="prompt">~/dev $</div>
+                                <div class="command">echo "Welcome to my portfolio"</div>
+                                <span class="typed-cursor"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 d-none d-lg-block">
+                    <!-- This would be a good place for a hero image or illustration -->
+                </div>
+            </div>
+        </section>
 
-            <section id="about" class="content-section">
-                <h2>About Me</h2>
-                <p>I'm a dedicated developer who believes in the power of continuous learning and improvement. Through this platform, I share my experiences, knowledge, and projects with the community.</p>
-            </section>
+        <section id="about" class="mb-5">
+            <h2 class="section-title">About Me</h2>
+            <div class="content-card">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p>I'm a software developer passionate about building tools that solve real problems. My journey involves continuous learning and adapting to new technologies while maintaining solid engineering principles.</p>
+                        <p>I specialize in developing applications that prioritize privacy, performance, and user experience. When I'm not coding, I enjoy exploring new technologies and contributing to open-source projects.</p>
+                        
+                        <div class="mt-4">
+                            <div class="tech-tag">Swift</div>
+                            <div class="tech-tag">Python</div>
+                            <div class="tech-tag">JavaScript</div>
+                            <div class="tech-tag">React</div>
+                            <div class="tech-tag">TensorFlow</div>
+                            <div class="tech-tag">iOS Development</div>
+                            <div class="tech-tag">Machine Learning</div>
+                            <div class="tech-tag">API Design</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- Future profile picture or additional info can go here -->
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <section id="projects" class="content-section">
-                <h2>Featured Projects</h2>
-                <p>Explore some of my recent projects and contributions to the development community. Each project represents a unique challenge and learning opportunity.</p>
-            </section>
+        <section id="projects" class="mb-5">
+            <h2 class="section-title">Projects</h2>
+            
+            <div class="row mb-4">
+                <div class="col-lg-6 mb-4">
+                    <div class="content-card h-100">
+                        <div class="app-badge">iOS App</div>
+                        <h3 class="mb-3">MarkFlow: AI Format Engine</h3>
+                        
+                        <div class="mb-3">
+                            <span class="tech-tag swift">Swift</span>
+                            <span class="tech-tag ai">AI/ML</span>
+                            <span class="tech-tag privacy">Privacy-Focused</span>
+                        </div>
+                        
+                        <p>MarkFlow (墨转) is an AI document format conversion tool that helps you convert Markdown content to multiple professional document formats with a single click. No internet connection required, all processing is done locally to protect your privacy.</p>
+                        
+                        <div class="mt-4">
+                            <h5 class="mb-3">Key Features:</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle feature-icon"></i>Convert to DOCX, PDF, PPTX, XLSX</li>
+                                <li class="mb-2"><i class="fas fa-check-circle feature-icon"></i>12 beautifully designed image themes</li>
+                                <li class="mb-2"><i class="fas fa-check-circle feature-icon"></i>Custom style options for images</li>
+                                <li class="mb-2"><i class="fas fa-check-circle feature-icon"></i>Convenient history recording</li>
+                                <li class="mb-2"><i class="fas fa-check-circle feature-icon"></i>Intuitive user interface</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h5 class="mb-2">Privacy Policy:</h5>
+                            <div class="privacy-buttons">
+                                <a href="privacy-sc.html" class="btn lang-button"><i class="fas fa-file-alt me-2"></i>简体中文</a>
+                                <a href="privacy-en.html" class="btn lang-button"><i class="fas fa-file-alt me-2"></i>English</a>
+                                <a href="privacy-tc.html" class="btn lang-button"><i class="fas fa-file-alt me-2"></i>繁體中文</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <!-- Placeholder for future projects -->
+                    <div class="project-card">
+                        <div class="project-content d-flex align-items-center justify-content-center text-center">
+                            <div>
+                                <i class="fas fa-code-branch mb-3" style="font-size: 3rem; color: #ddd;"></i>
+                                <h4 class="project-title">More Projects Coming Soon</h4>
+                                <p class="project-desc text-muted">Stay tuned for future developments and open source contributions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <section id="contact" class="content-section">
-                <h2>Get in Touch</h2>
-                <p>Interested in collaboration or have questions? Feel free to reach out through my social media channels or GitHub profile.</p>
-            </section>
-        </main>
-
-        <footer>
-            <p>&copy; 2024 Always Keep Coding. All rights reserved.</p>
-        </footer>
+        <section id="contact" class="mb-5">
+            <h2 class="section-title">Contact</h2>
+            <div class="content-card">
+                <p>Interested in collaborating or have questions about my projects? Feel free to reach out:</p>
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-envelope feature-icon"></i>
+                    <a href="mailto:alwayskeepcoding@outlook.com" class="text-decoration-none">alwayskeepcoding@outlook.com</a>
+                </div>
+                
+                <div class="mt-4">
+                    <div class="d-flex justify-content-center">
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-secondary">&copy; 2025 Always Keep Coding. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-secondary code-font">{} with <i class="fas fa-heart text-danger"></i> and <i class="fas fa-coffee"></i></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Simple scroll animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Active nav link highlighting
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if(pageYOffset >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
