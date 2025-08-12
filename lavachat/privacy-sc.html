@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LavaChat 隐私政策</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; background: #f5f5f7; }
+    .container-narrow { max-width: 880px; }
+    .card { border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+    h1, h2, h3 { color: #1a1a2e; }
+    .muted { color: #6c757d; }
+    .badge-pill { border-radius: 9999px; }
+    .toc a { text-decoration: none; }
+    .section + .section { margin-top: 1.75rem; }
+  </style>
+  <meta name="description" content="LavaChat 隐私政策（简体中文）">
+</head>
+<body>
+  <div class="container container-narrow py-5">
+    <div class="mb-4">
+      <a href="../index.html" class="text-decoration-none">← 返回首页</a>
+    </div>
+
+    <div class="card p-4 p-md-5 mb-4 bg-white">
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <h1 class="mb-0">LavaChat 隐私政策</h1>
+        <span class="badge bg-light text-dark badge-pill">生效日期：2025-08-12</span>
+      </div>
+      <p class="mt-3 mb-0 muted">如对本政策有任何疑问，请联系：<a href="mailto:alwayskeepcoding@outlook.com">alwayskeepcoding@outlook.com</a></p>
+    </div>
+
+    <div class="card p-4 p-md-5">
+      <div class="toc mb-4">
+        <strong class="d-block mb-2">目录</strong>
+        <ol class="mb-0">
+          <li><a href="#intro">简介与适用范围</a></li>
+          <li><a href="#summary">我们收集/不收集什么</a></li>
+          <li><a href="#data">我们处理的数据及来源</a></li>
+          <li><a href="#processing">处理方式与存储位置</a></li>
+          <li><a href="#sharing">第三方服务与跨境传输</a></li>
+          <li><a href="#rights">您的权利与控制</a></li>
+          <li><a href="#retention">数据保留与删除</a></li>
+          <li><a href="#security">安全措施</a></li>
+          <li><a href="#children">未成年人</a></li>
+          <li><a href="#changes">本政策的变更</a></li>
+          <li><a href="#contact">联系我们</a></li>
+        </ol>
+      </div>
+
+      <div class="section" id="intro">
+        <h2>1. 简介与适用范围</h2>
+        <p>LavaChat 是一款运行于 iOS 16 及以上版本的本地应用。我们致力于最小化数据收集与传输，不运营自有服务器，不进行行为跟踪或画像。本政策说明 LavaChat 在您使用过程中如何处理与保护数据。</p>
+      </div>
+
+      <div class="section" id="summary">
+        <h2>2. 我们收集/不收集什么</h2>
+        <ul>
+          <li><strong>不收集</strong>：第三方统计/分析/崩溃数据（如 Firebase、Sentry、TelemetryDeck）、广告标识符（IDFA/ATT）。</li>
+          <li><strong>订阅与支付</strong>：完全由 Apple 的 <strong>StoreKit</strong> 处理，LavaChat 不接触您的支付卡信息。</li>
+          <li><strong>CloudKit 使用范围</strong>：仅在您<strong>主动发起 iCloud 分享</strong>时使用，用于生成分享链接；不进行自动云同步。</li>
+          <li><strong>LLM 调用</strong>：仅支持<strong>用户自带 API Key</strong>的直连第三方模型服务商；聊天内容与附件在您指令下发送给该服务商处理。</li>
+          <li><strong>日志</strong>：发布版本不打印或记录网络请求体/聊天内容；如有错误日志，为最小化信息且仅保存在本地，不回传任何服务器。</li>
+        </ul>
+      </div>
+
+      <div class="section" id="data">
+        <h2>3. 我们处理的数据及来源</h2>
+        <ul>
+          <li><strong>您提供的数据</strong>：聊天文本、您选择上传/粘贴的图片或文件、模型与会话配置。</li>
+          <li><strong>设备权限</strong>：
+            <ul>
+              <li>相机（扫码/拍照）：仅在您授权并使用相关功能时访问。</li>
+              <li>相册（选图）：仅在您授权并选择图片时访问。</li>
+            </ul>
+          </li>
+          <li><strong>订阅相关</strong>：订阅状态与交易由 Apple 通过 StoreKit 提供；我们不持有可识别您的支付信息。</li>
+        </ul>
+      </div>
+
+      <div class="section" id="processing">
+        <h2>4. 处理方式与存储位置</h2>
+        <ul>
+          <li><strong>本地存储</strong>：应用数据保存在您的设备（例如 Core Data、本地文档/临时目录），偏好设置在 <code>UserDefaults</code>，API Key 保存在 <code>Keychain</code>。</li>
+          <li><strong>第三方 LLM 服务商</strong>：当您发起对话或上传文件时，相关内容会通过加密连接（HTTPS）发送至您配置的模型服务商。不同服务商的数据处理与存储位置受其各自的隐私政策与条款约束。</li>
+          <li><strong>iCloud 分享（CloudKit）</strong>：仅当您主动分享时，我们会将导出的配置/会话等 <code>ShareableData</code> 序列化后写入您的 iCloud（作为记录字段）并生成分享链接。您可以接受/停止分享。</li>
+        </ul>
+      </div>
+
+      <div class="section" id="sharing">
+        <h2>5. 第三方服务与跨境传输</h2>
+        <p>您可自行配置并选择第三方模型服务商用于处理请求。出于模型推理与存储的需要，您的数据可能被传输至境外服务器。请在使用前审阅并同意所选服务商的条款与隐私政策，并谨慎避免上传敏感个人信息。</p>
+      </div>
+
+      <div class="section" id="rights">
+        <h2>6. 您的权利与控制</h2>
+        <ul>
+          <li>在应用内查看、导出、删除本地数据；撤回或停止 iCloud 分享。</li>
+          <li>随时更换或删除 API Key。</li>
+          <li>随时撤回相机/相册等系统权限（可能影响相关功能使用）。</li>
+        </ul>
+      </div>
+
+      <div class="section" id="retention">
+        <h2>7. 数据保留与删除</h2>
+        <p>我们不运营自有服务器，不保存您的对话或文件副本。应用数据保留在您的设备，直到您主动删除或卸载应用。对于 iCloud 分享，您可随时停止分享或删除相关记录。</p>
+      </div>
+
+      <div class="section" id="security">
+        <h2>8. 安全措施</h2>
+        <ul>
+          <li>API Key 存储在系统 <code>Keychain</code>。</li>
+          <li>应用运行在 iOS 沙箱环境，网络通信使用 HTTPS。</li>
+          <li>LLM 流式传输优先使用 <code>URLSession</code> 的 <code>.ephemeral</code> 配置以减少持久化缓存。</li>
+          <li>发布版本不记录请求体/对话内容。</li>
+        </ul>
+      </div>
+
+      <div class="section" id="children">
+        <h2>9. 未成年人</h2>
+        <p>本应用<strong>不面向 13 岁以下</strong>的儿童。如您认为我们在不知情的情况下处理了 13 岁以下儿童的数据，请联系我们以便删除本地数据并指导停止使用。</p>
+      </div>
+
+      <div class="section" id="changes">
+        <h2>10. 本政策的变更</h2>
+        <p>我们可能会根据功能或合规要求更新本政策。重大变更将通过应用内或页面更新的方式通知并在本页标注生效日期。若未来启用远程推送，我们将补充说明用途与数据处理方式。</p>
+      </div>
+
+      <div class="section" id="contact">
+        <h2>11. 联系我们</h2>
+        <p>邮箱：<a href="mailto:alwayskeepcoding@outlook.com">alwayskeepcoding@outlook.com</a></p>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <a class="btn btn-outline-secondary me-2" href="./privacy-en.html">View in English</a>
+      <a class="btn btn-outline-secondary me-2" href="./terms-sc.html">使用条款</a>
+      <a class="btn btn-outline-secondary" href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Apple EULA</a>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
+
+
